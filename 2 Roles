@@ -2,7 +2,7 @@ try {
             PreparedStatement consulta1 = con.prepareStatement("SELECT * FROM usuario WHERE Correo=? AND Contraseña=? AND ID_Rol=1 AND Estado = 1");
 
             consulta1.setString(1, Usu);
-            consulta1setString(2, Pass);
+            consulta1.setString(2, Pass);
 
             ResultSet cons1 = consulta1.executeQuery();
 
