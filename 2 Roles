@@ -1,0 +1,33 @@
+try {
+            PreparedStatement consulta1 = con.prepareStatement("SELECT * FROM usuario WHERE Correo=? AND Contraseña=? AND ID_Rol=1 AND Estado = 1");
+
+            consulta1.setString(1, Usu);
+            consulta1setString(2, Pass);
+
+            ResultSet cons1 = consulta1.executeQuery();
+
+            if (cons1.next()) {
+                HttpSession SesionOk = request.getSession();
+                SesionOk.setAttribute("Usuario", Usu);
+                request.getRequestDispatcher("AyA/Admin/InterfazAdmin.jsp").forward(request, response);
+
+            } else {
+                PreparedStatement consulta2 = con.prepareStatement("SELECT * FROM usuario WHERE Correo=? AND Contraseña=? AND ID_Rol=2 AND Estado = 1");
+
+                consulta2.setString(1, Usu);
+                consulta2.setString(2, Pass);
+
+                ResultSet cons2 = consulta2.executeQuery();
+
+                if (cons2.next()) {
+                    HttpSession SesionOk = request.getSession();
+                    SesionOk.setAttribute("Usuario", Usu);
+                    request.getRequestDispatcher("AyA/Cliente/InterfazCliente.jsp").forward(request, response);
+
+                } else {
+
+                    request.setAttribute("msg", "Credenciales no coinciden");
+                    request.getRequestDispatcher("AyA/Principal/Accederadmin.jsp").forward(request, response);
+                }
+            }
+        }
